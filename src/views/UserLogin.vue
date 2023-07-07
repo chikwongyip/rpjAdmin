@@ -45,6 +45,7 @@ export default {
           userLogin(param).then(response => {
             if (response.data.errno === 0){
               localStorage.token = response.data.data.token;
+              this.$cookies.set("username",this.loginForm.username,{ expires: '1d', path: '/' })
               this.$router.push('/admin');
             }
           })

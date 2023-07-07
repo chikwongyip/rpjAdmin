@@ -8,7 +8,7 @@
           <el-input v-model="filters.brand_name" placeholder="品牌名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getData">查询</el-button>
+          <el-button type="primary" v-on:click="searchData">查询</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -98,6 +98,7 @@ export default {
         brand_name:''          //根据条件查询
       },
       data:[],                 //请求brand list 获取的所有data
+      dataSearch:[],           //储存之前结果
       currentPage:1,           //当前页
       pageSize:10,             //每页显示条数
       listLoading:false,        //加载brand list动画
@@ -141,19 +142,24 @@ export default {
     }
   },
   methods:{
+    searchData( ){
+      this.listLoading = true
+      let searchResult = []
+      this.data = this.dataSearch
+      const regExp = new RegExp(this.filters.brand_name,"g");
+      searchResult = this.data.filter(item => {
+            return regExp.test(item.brand_name)
+      })
+      this.data = searchResult
+      this.listLoading = false
+    },
     getData(){
-      //如果filter 位置不为空 则以brand name位置传入
-      let param = {}
-      if (this.filters.brand_name){
-        param = {
-          brand_name:this.filters.brand_name
-        }
-      }
       this.listLoading= true
-      getBrandList(param).then((res) => {
+      getBrandList( ).then((res) => {
         this.listLoading = false
         if(res.data.errno === 0){
           this.data = res.data.data
+          this.dataSearch = res.data.data
         }else{
           this.$alert("信息加载失败",{
             confirmButtonText:"确定"

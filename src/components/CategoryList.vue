@@ -6,7 +6,7 @@
           <el-input v-model="filters.category_name" placeholder="产品类别名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getData">查询</el-button>
+          <el-button type="primary" v-on:click="searchData">查询</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -92,6 +92,7 @@ export default {
   data(){
     return{
       data:[],
+      dataSearch:[],
       fileList:[],
       filters:{
         category_name:""
@@ -132,17 +133,23 @@ export default {
     }
   },
   methods:{
-    getData(){
-      let param = {}
-      if(this.filters.category_name){
-        param = {
-          category_name:this.filters.category_name
-        }
-      }
+    searchData(){
       this.listLoading = true
-      getCategoryList(param).then(response => {
+      this.data = this.dataSearch
+      let searchResult = []
+      const regExp = new RegExp(this.filters.category_name,"g");
+      searchResult = this.data.filter(item => {
+        return regExp.test(item.category_name)
+      })
+      this.data = searchResult
+      this.listLoading = false
+    },
+    getData(){
+      this.listLoading = true
+      getCategoryList().then(response => {
         if(response.data.errno === 0){
           this.data = response.data.data
+          this.dataSearch = response.data.data
           this.listLoading = false
         }else{
           this.$message({

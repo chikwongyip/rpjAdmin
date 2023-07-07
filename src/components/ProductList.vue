@@ -207,6 +207,7 @@ export default {
       listLoading:false,
       selectList:[],
       data:[],
+      dataSearch:[],
       images:[],
       brand:[],
       category:[],
@@ -255,14 +256,10 @@ export default {
   },
   methods:{
     getData(){
-      let param = {
-        product_name:this.filters.product_name,
-        brand_id:this.filters.brand_id,
-        category_id:this.filters.category_id
-      }
-      return getProductList(param)
+      return getProductList()
     },
     search(){
+      this.data = this.dataSearch
       if (this.filters.brand_id){
         this.searchResult = []
         this.searchResult = this.data.filter(item => {
@@ -414,6 +411,7 @@ export default {
         .then(response => {
           if (response.data.errno === 0){
             this.data = response.data.data.product;
+            this.dataSearch = response.data.data.product;
             this.images = response.data.data.images;
             this.brand = response.data.data.brand;
             this.category = response.data.data.category;

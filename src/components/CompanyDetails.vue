@@ -54,7 +54,7 @@ export default {
   name: "CompanyDetails",
   data() {
     return {
-      formData:{},
+
       logo:{},
       previewUrl:"",
       fileList:[],
@@ -77,19 +77,18 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((isValid) => {
         if (isValid){
-          this.formData = new FormData()
-          this.formData.append("id",this.company.id)
-          this.formData.append("name",this.company.name)
-          this.formData.append("description",this.company.description)
-          this.formData.append("icp",this.company.icp)
-          this.formData.append("tel",this.company.tel)
-          this.formData.append("address",this.company.address)
-          this.formData.append("email",this.company.email)
+          let params = new FormData()
+          this.params.append("id",this.company.id)
+          this.params.append("name",this.company.name)
+          this.params.append("description",this.company.description)
+          this.params.append("icp",this.company.icp)
+          this.params.append("tel",this.company.tel)
+          this.params.append("address",this.company.address)
+          this.params.append("email",this.company.email)
           if(this.fileList[0]){
-            this.formData.append("logo",this.fileList[0].raw)
+            this.params.append("logo",this.fileList[0].raw)
           }
-          console.log(this.formData)
-          editCompany(this.formData).then((response) => {
+          editCompany(params).then((response) => {
             if(response.data.errno === 0){
               this.$message({
                 message:"更新成功",

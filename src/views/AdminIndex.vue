@@ -64,7 +64,7 @@ export default {
     getData(){
       getCompany().then( response => {
         this.company.name = response.data.data[0].name
-        this.company.logo = "http://localhost:8000/images/" + response.data.data[0].logo
+        this.company.logo = "http://120.77.25.98:8000/images/" + response.data.data[0].logo
       })
     }
   },

@@ -1,9 +1,6 @@
 import axios from 'axios'
-let base = "http://localhost:8000/api";
-// const headers = {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json;charset=UTF-8'
-// };
+let base = "http://120.77.25.98:8000/api";
+
 axios.interceptors.request.use(
     config => {
         const token = localStorage.getItem("token");

@@ -30,6 +30,7 @@
           <el-image
               :src="company.logo"
               style="width:200px;height: 80px"
+              :load="imageOnLoad"
           >
             <div slot="placeholder" class="image-slot">
               加载中<span class="dot">...</span>
@@ -66,6 +67,9 @@ export default {
         this.company.name = response.data.data[0].name
         this.company.logo = "http://120.77.25.98:8000/images/" + response.data.data[0].logo
       })
+    },
+    imageOnLoad(e){
+      console.log(e)
     }
   },
   mounted() {

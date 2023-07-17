@@ -54,7 +54,6 @@ export default {
   name: "CompanyDetails",
   data() {
     return {
-
       logo:{},
       previewUrl:"",
       fileList:[],
@@ -78,15 +77,15 @@ export default {
       this.$refs[formName].validate((isValid) => {
         if (isValid){
           let params = new FormData()
-          this.params.append("id",this.company.id)
-          this.params.append("name",this.company.name)
-          this.params.append("description",this.company.description)
-          this.params.append("icp",this.company.icp)
-          this.params.append("tel",this.company.tel)
-          this.params.append("address",this.company.address)
-          this.params.append("email",this.company.email)
+          params.append("id",this.company.id)
+          params.append("name",this.company.name)
+          params.append("description",this.company.description)
+          params.append("icp",this.company.icp)
+          params.append("tel",this.company.tel)
+          params.append("address",this.company.address)
+          params.append("email",this.company.email)
           if(this.fileList[0]){
-            this.params.append("logo",this.fileList[0].raw)
+            params.append("logo",this.fileList[0].raw)
           }
           editCompany(params).then((response) => {
             if(response.data.errno === 0){

@@ -11,7 +11,6 @@ Vue.use(VueAxios,axios)
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueCookies,{expires:'7d'});
-console.log(process.env.NODE_ENV)
 const router = new VueRouter({
   mode:"history",
   routes

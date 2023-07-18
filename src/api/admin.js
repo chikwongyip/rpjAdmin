@@ -1,6 +1,5 @@
 import axios from 'axios'
-let base = "http://120.77.25.98:8000/api";
-
+let base = process.env.VUE_APP_URL
 axios.interceptors.request.use(
     config => {
         const token = localStorage.getItem("token");

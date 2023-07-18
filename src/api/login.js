@@ -1,5 +1,5 @@
 import axios from 'axios'
-let base = "http://120.77.25.98:8000/api";
+let base = process.env.VUE_APP_URL
 const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json'

@@ -39,11 +39,28 @@
 <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false" >
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="id">
-          <el-input v-model="editForm.brand_id" autocomplete="off" :disabled="true"></el-input>
-        </el-form-item>
         <el-form-item label="品牌名称">
           <el-input v-model="editForm.brand_name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="品牌图片">
+          <el-upload
+              action=""
+              :multiple="true"
+              :auto-upload="false"
+              :show-file-list="true"
+              :limit="1"
+              :file-list="fileList"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-change="handleUploadChange"
+              :on-remove="handleUploadRemove"
+              :before-upload="beforeUpload"
+              ref="files">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="uploadVisible">
+            <img width="100%" :src=uploadImageUrl alt="">
+          </el-dialog>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -222,6 +239,7 @@ export default {
                     let param = new FormData();
                     param.append("brand_id",this.editForm.brand_id)
                     param.append("brand_name",this.editForm.brand_name)
+                    param.append("brand_image",this.fileList[0].raw)
                     updateBrand(param).then((response) =>{
                       this.editLoading = false
                       if(response.data.errno === 0){
@@ -230,6 +248,7 @@ export default {
                           type:"success"
                         })
                         this.$refs[formName].resetFields()
+                        this.fileList = []
                         this.editFormVisible = false
                         this.getData()
                       }else{

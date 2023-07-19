@@ -65,7 +65,7 @@ export default {
     getData(){
       getCompany().then( response => {
         this.company.name = response.data.data[0].name
-        this.company.logo = process.env.IMG_URL + response.data.data[0].logo
+        this.company.logo = process.env.VUE_APP_IMG + response.data.data[0].logo
         console.log(this.company.logo)
       })
     },

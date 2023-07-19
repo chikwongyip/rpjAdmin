@@ -16,6 +16,7 @@ const router = new VueRouter({
   routes
 })
 Vue.config.productionTip = false
+console.log(process.env.VUE_APP_URL,process.env.VUE_APP_IMG)
 new Vue({
   render: h => h(App),
   router,

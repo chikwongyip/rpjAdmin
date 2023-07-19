@@ -1,5 +1,5 @@
 import axios from 'axios'
-let base = process.env.VUE_APP_URL
+let base = process.env.API_URL
 axios.interceptors.request.use(
     config => {
         const token = localStorage.getItem("token");

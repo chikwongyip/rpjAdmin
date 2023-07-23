@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 800px; border: 1px solid #eee">
+  <el-container style="height: auto; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-active="$route.path"
                class="el-menu-vertical-demo"
@@ -38,7 +38,7 @@
           </el-image>
         </div>
       </el-header>
-      <el-main class="main">
+      <el-main>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -85,4 +85,5 @@ export default {
   font-size: 12px;
   display: flex;
 }
+
 </style>

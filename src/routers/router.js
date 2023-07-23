@@ -9,7 +9,7 @@ import ProductList from "@/components/ProductList";
 
 let routes = [
     {
-        path:'/login',
+        path:'/',
         component:Login
     },
     {
@@ -21,8 +21,8 @@ let routes = [
             { path:'category',component: CategoryList },
             { path:'company',component: CompanyDetails},
             { path:'product',component: ProductList}
-
         ]
     }
+
 ];
 export default routes;

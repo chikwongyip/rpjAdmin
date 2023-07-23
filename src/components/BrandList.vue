@@ -235,6 +235,7 @@ export default {
             if (valid){
               this.$confirm("确认提交吗？","提示",{}).then(
                   () => {
+                    // TODO:Due to token was expired push router can not display login page
                     this.editLoading = true
                     let param = new FormData();
                     param.append("brand_id",this.editForm.brand_id)

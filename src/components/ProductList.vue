@@ -35,9 +35,6 @@
     </el-col>
     <el-table :data="productList" highlight-current-row v-loading="listLoading" @selection-change="handleSelectionChange">
       <el-table-column prop="top" label="置顶标志" width="100"></el-table-column>
-      <el-table-column prop="product_id" label="产品id" width="100"></el-table-column>
-      <el-table-column prop="brand_id" label="品牌id" width="100"></el-table-column>
-      <el-table-column prop="category_id" label="类型id" width="100"></el-table-column>
       <el-table-column prop="product_name" label="产品名称" width="150"></el-table-column>
       <el-table-column prop="brand_name" label="品牌名称" width="150"></el-table-column>
       <el-table-column prop="category_name" label="类型名称" width="150"></el-table-column>
@@ -64,31 +61,17 @@
     <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false" >
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="product_id">
-          <el-input v-model="editForm.product_id" autocomplete="off" :disabled="true"></el-input>
+        <el-form-item label="产品置顶">
+          <el-checkbox v-model="editForm.checked"></el-checkbox>
         </el-form-item>
-        <el-form-item label="category_id">
-          <el-input v-model="editForm.category_id" autocomplete="off" :disabled="true"></el-input>
+        <el-form-item label="产品类型">
+          <el-input v-model="editForm.category_name" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="brand_id">
-          <el-input v-model="editForm.brand_id" autocomplete="off" :disabled="true"></el-input>
+        <el-form-item label="产品品牌">
+          <el-input v-model="editForm.brand_name" autocomplete="off" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="产品名称">
           <el-input v-model="editForm.product_name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="品牌">
-          <el-dropdown split-button type="primary" @command="handleBrandCommand" :model="brand">
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-model="brand.brand_name"></el-dropdown-item>
-              </el-dropdown-menu>
-          </el-dropdown>
-        </el-form-item>
-        <el-form-item label="产品类型">
-          <el-dropdown split-button type="primary" @command="handleCategoryCommand" :model="category">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-model="category.category_name"></el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
         </el-form-item>
         <el-form-item label="产品描述">
           <el-input type="textarea"
@@ -116,6 +99,9 @@
     <!-- 新增界面   -->
     <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="200x" :rules="addFormRules" ref="addForm">
+        <el-form-item label="产品置顶">
+          <el-checkbox v-model="addForm.checked"></el-checkbox>
+        </el-form-item>
         <el-form-item label="产品名称" prop="product_name">
           <el-input v-model="addForm.product_name" auto-complete="off"></el-input>
         </el-form-item>
@@ -187,7 +173,6 @@
 
 <script>
 import {getProductList, addProductList,deleteProduct} from "@/api/admin";
-
 export default {
   name:"ProductList",
   data(){
@@ -224,7 +209,8 @@ export default {
         product_name:"",
         product_desc:"",
         product_standard:"",
-        product_model:""
+        product_model:"",
+        checked:""
       },
       // 增加校验逻辑
       addFormRules:{
@@ -239,10 +225,13 @@ export default {
         product_id:"",
         brand_id:"",
         category_id:"",
+        brand_name:"",
+        category_name:"",
         product_name:"",
         product_desc:"",
         product_standard:"",
-        product_model:""
+        product_model:"",
+        checked:""
       },
       //编辑校验
       editFormRules:{
@@ -357,6 +346,9 @@ export default {
         if (isValid){
           this.$confirm("确认提交？","提示",{}).then(()=>{
             this.addFormLoading = true;
+            if(this.addForm){
+              this.addForm.top = "X"
+            }
             let formData = new FormData();
             formData.append("top",this.addForm.top);
             formData.append("product_name",this.addForm.product_name);
@@ -391,6 +383,9 @@ export default {
         if (isValid){
           this.$confirm("确认修改","提示",{}).then(() => {
             this.editFormLoading = true;
+            if(this.editForm.checked){
+              this.editForm.top = 'X'
+            }
             let formData = new FormData();
             formData.append("top",this.editForm.top);
             formData.append("product_id",this.editForm.product_id);

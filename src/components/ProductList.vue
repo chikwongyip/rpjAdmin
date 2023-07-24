@@ -59,7 +59,7 @@
         @size-change="handleSizeChange">
     </el-pagination>
     <!--编辑界面-->
-    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false" >
+    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false" :before-close="handleClose" >
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
         <el-form-item label="产品置顶">
           <el-checkbox v-model="editForm.checked"></el-checkbox>
@@ -93,11 +93,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="editFormVisible = false">取消</el-button>
-        <el-button type="primary" @click.native="editSubmit('editForm')" :loading="editLoading">提交</el-button>
+        <el-button type="primary" @click.native="editSubmit('editForm')" :loading="editFormLoading">提交</el-button>
       </div>
     </el-dialog>
     <!-- 新增界面   -->
-    <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
+    <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false" :before-close="handleClose">
       <el-form :model="addForm" label-width="200x" :rules="addFormRules" ref="addForm">
         <el-form-item label="产品置顶">
           <el-checkbox v-model="addForm.checked"></el-checkbox>
@@ -172,7 +172,7 @@
 </template>
 
 <script>
-import {getProductList, addProductList,deleteProduct} from "@/api/admin";
+import {getProductList, addProductList,deleteProduct,editProduct} from "@/api/admin";
 export default {
   name:"ProductList",
   data(){
@@ -245,7 +245,18 @@ export default {
   },
   methods:{
     getData(){
-      return getProductList()
+      getProductList().then(response => {
+        if (response.data.errno === 0){
+          this.data = response.data.data.product;
+          this.dataSearch = response.data.data.product;
+          this.images = response.data.data.images;
+          this.brand = response.data.data.brand;
+          this.category = response.data.data.category;
+        }
+      })
+          .catch(error => {
+            console.log(error)
+          })
     },
     search(){
       this.data = this.dataSearch
@@ -289,6 +300,9 @@ export default {
     },
     handleEdit(index,row){
       this.editForm = Object.assign({},row)
+      if(this.editForm.top === "X"){
+        this.editForm.checked = true
+      }
       this.editFormVisible = true
     },
     handleDel(index,row){
@@ -316,7 +330,6 @@ export default {
       this.editForm.brand_id = item.brand_id;
       this.selectBrand = item.brand_name;
       this.filters.brand_id = item.brand_id;
-
     },
     handleCategoryCommand(item){
       this.addForm.category_id = item.category_id;
@@ -395,27 +408,33 @@ export default {
             formData.append("product_desc",this.editForm.product_desc);
             formData.append("product_model",this.editForm.product_model);
             formData.append("product_standard",this.editForm.product_standard);
+            editProduct(formData).then(res => {
+              if(res.data.errno === 0){
+                this.$message({
+                  message:"更新成功",
+                  type:"success"
+                })
+                this.editFormLoading = false
 
+              }else{
+                this.$message(
+                    {
+                      message:res.data.message,
+                      type:"error"
+                    }
+                )
+              }
+            })
           })
         }
       })
+    },
+    handleClose(){
+      this.getData()
     }
   },
   mounted() {
     this.getData()
-        .then(response => {
-          if (response.data.errno === 0){
-            this.data = response.data.data.product;
-            this.dataSearch = response.data.data.product;
-            this.images = response.data.data.images;
-            this.brand = response.data.data.brand;
-            this.category = response.data.data.category;
-          }
-          //TODO:加载失败
-        })
-        .catch(error => {
-          console.log(error)
-        })
   },
   watch:{
     filter:{

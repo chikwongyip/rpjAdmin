@@ -34,13 +34,13 @@
       </el-form>
     </el-col>
     <el-table :data="productList" highlight-current-row v-loading="listLoading" @selection-change="handleSelectionChange">
-      <el-table-column prop="top" label="置顶标志" width="100"></el-table-column>
-      <el-table-column prop="product_name" label="产品名称" width="150"></el-table-column>
-      <el-table-column prop="brand_name" label="品牌名称" width="150"></el-table-column>
-      <el-table-column prop="category_name" label="类型名称" width="150"></el-table-column>
-      <el-table-column prop="product_desc" label="产品描述" width="1000"></el-table-column>
-      <el-table-column prop="product_standard" label="产品标准参数" width="300"></el-table-column>
-      <el-table-column prop="product_model" label="产品型号" width="80"></el-table-column>
+      <el-table-column prop="top" label="置顶标志" width="50px"></el-table-column>
+      <el-table-column prop="product_name" label="产品名称" width="100px"></el-table-column>
+      <el-table-column prop="brand_name" label="品牌名称" width="100px"></el-table-column>
+      <el-table-column prop="category_name" label="类型名称" width="100px"></el-table-column>
+      <el-table-column prop="product_desc" label="产品描述" width="500px"></el-table-column>
+      <el-table-column prop="product_standard" label="产品标准参数" width="300px"></el-table-column>
+      <el-table-column prop="product_model" label="产品型号" width="80px"></el-table-column>
       <el-table-column label="操作" width="150">
         <template scope="scope">
           <el-button size="small" @click="handleEdit(scope.index, scope.row)">编辑</el-button>

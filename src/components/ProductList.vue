@@ -90,6 +90,26 @@
         <el-form-item label="产品型号">
           <el-input v-model="editForm.product_model" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="产品图片">
+          <el-upload
+              action=""
+              :multiple="true"
+              :auto-upload="false"
+              :show-file-list="true"
+              :limit="6"
+              :file-list="fileList"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-change="handleChange"
+              :on-remove="handleRemove"
+              :before-upload="beforeUpload"
+              ref="files">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="uploadVisible">
+            <img width="100%" :src=uploadImageUrl alt="">
+          </el-dialog>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="editFormVisible = false">取消</el-button>
@@ -408,6 +428,9 @@ export default {
             formData.append("product_desc",this.editForm.product_desc);
             formData.append("product_model",this.editForm.product_model);
             formData.append("product_standard",this.editForm.product_standard);
+            this.fileList.forEach((file,index)=>{
+              formData.append(`file${index}`,file.raw)
+            })
             editProduct(formData).then(res => {
               if(res.data.errno === 0){
                 this.$message({
@@ -431,6 +454,7 @@ export default {
     },
     handleClose(){
       this.getData()
+      this.editFormVisible = false
     }
   },
   mounted() {

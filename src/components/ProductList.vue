@@ -446,6 +446,7 @@ export default {
                       type:"error"
                     }
                 )
+                this.editFormLoading = false
               }
             })
           })

@@ -264,6 +264,7 @@ export default {
                 this.$refs[formName].resetFields()
                 this.fileList = []
                 this.addFormLoading = false
+                this.getData()
               }else {
                 this.$router.push('/login')
               }

@@ -15,6 +15,7 @@
         </el-form-item>
       </el-form>
     </el-col>
+    <!-- table content -->
     <el-table :data="brandList" highlight-current-row v-loading="listLoading" @selection-change="handleSelectionChange">
       <el-table-column prop="brand_id" label="品牌ID" width="140"></el-table-column>
       <el-table-column prop="brand_image" label="品牌Logo" width="120"></el-table-column>
@@ -26,6 +27,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- navigation -->
     <el-pagination
         :layout="'total, sizes, prev, pager, next, jumper'"
         :total="data.length"
@@ -283,6 +285,7 @@ export default {
               this.$refs['addForm'].resetFields()
               this.fileList = []
               this.addLoading= false
+              this.getData()
               }else{
                 this.$router.push('/login');
               }

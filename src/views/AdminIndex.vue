@@ -1,11 +1,14 @@
 <template>
   <el-container style="height: auto; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-active="$route.path"
+      <el-menu default-active="/admin/main"
                class="el-menu-vertical-demo"
                router
-               @select="handleMenuSelect"
       >
+        <el-menu-item index="/admin/main">
+          <i class="el-icon-menu"></i>
+          <span slot="title">Main</span>
+        </el-menu-item>
         <el-menu-item index="/admin/company">
           <i class="el-icon-menu"></i>
           <span slot="title">Company</span>
@@ -66,7 +69,6 @@ export default {
       getCompany().then( response => {
         this.company.name = response.data.data[0].name
         this.company.logo = process.env.VUE_APP_IMG + response.data.data[0].logo
-        console.log(this.company.logo)
       })
     },
     imageOnLoad(e){
@@ -85,5 +87,4 @@ export default {
   font-size: 12px;
   display: flex;
 }
-
 </style>

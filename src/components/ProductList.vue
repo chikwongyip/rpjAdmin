@@ -319,6 +319,7 @@ export default {
       this.addFormVisible = true;
     },
     handleEdit(index,row){
+      this.fileList = [];
       this.editForm = Object.assign({},row)
       if(this.editForm.top === "X"){
         this.editForm.checked = true

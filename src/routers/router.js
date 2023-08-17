@@ -9,10 +9,6 @@ import ProductList from "@/components/ProductList";
 
 let routes = [
     {
-        path:'/',
-        component:Login
-    },
-    {
         path:'/admin',
         component: Admin,
         children:[
@@ -20,7 +16,8 @@ let routes = [
             { path: 'brand',component: BrandList},
             { path:'category',component: CategoryList },
             { path:'company',component: CompanyDetails},
-            { path:'product',component: ProductList}
+            { path:'product',component: ProductList},
+            { path:'login',component: Login}
         ]
     }
 

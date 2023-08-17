@@ -209,7 +209,7 @@ export default {
               this.$message.success("删除成功")
             }else{
               this.$message.error(result.data.message)
-              this.$router.push('/login');
+              this.$router.push('/admin/login');
             }
           })
         })
@@ -255,7 +255,7 @@ export default {
                         this.editFormVisible = false
                         this.getData()
                       }else{
-                        this.$router.push('/login');
+                        this.$router.push('/admin/login');
                       }
                     })
                         .catch(err => {
@@ -287,7 +287,7 @@ export default {
               this.addLoading= false
               this.getData()
               }else{
-                this.$router.push('/login');
+                this.$router.push('/admin/login');
               }
             })
           })

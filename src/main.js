@@ -13,6 +13,7 @@ Vue.use(VueRouter)
 Vue.use(VueCookies,{expires:'7d'});
 const router = new VueRouter({
   mode:"history",
+  base:"/admin",
   routes
 })
 Vue.config.productionTip = false

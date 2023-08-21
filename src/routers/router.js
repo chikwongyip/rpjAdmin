@@ -9,7 +9,7 @@ import ProductList from "@/components/ProductList";
 
 let routes = [
     {
-        path:'/admin',
+        path:'/',
         component: Admin,
         children:[
             { path:'main',component:MainPage },

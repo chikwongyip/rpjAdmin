@@ -5,23 +5,23 @@
                class="el-menu-vertical-demo"
                router
       >
-        <el-menu-item index="/admin/main">
+        <el-menu-item index="/main">
           <i class="el-icon-menu"></i>
           <span slot="title">Main</span>
         </el-menu-item>
-        <el-menu-item index="/admin/company">
+        <el-menu-item index="/company">
           <i class="el-icon-menu"></i>
           <span slot="title">Company</span>
         </el-menu-item>
-        <el-menu-item index="/admin/brand">
+        <el-menu-item index="/brand">
           <i class="el-icon-menu"></i>
           <span slot="title">Brand</span>
         </el-menu-item>
-        <el-menu-item index="/admin/category">
+        <el-menu-item index="/category">
           <i class="el-icon-menu"></i>
           <span slot="title">Category</span>
         </el-menu-item>
-        <el-menu-item index="/admin/product">
+        <el-menu-item index="/product">
           <i class="el-icon-menu"></i>
           <span slot="title">Product</span>
         </el-menu-item>

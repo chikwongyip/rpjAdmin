@@ -1,5 +1,5 @@
 import Login from '../views/UserLogin'
-import Admin from "@/views/AdminIndex";
+import AdminIndex from "@/views/AdminIndex";
 import MainPage from "@/components/MainPage";
 import BrandList from "@/components/BrandList";
 import CategoryList from "@/components/CategoryList";
@@ -10,7 +10,7 @@ import ProductList from "@/components/ProductList";
 let routes = [
     {
         path:'/',
-        component: Admin,
+        component: AdminIndex,
         children:[
             { path:'main',component:MainPage },
             { path: 'brand',component: BrandList},

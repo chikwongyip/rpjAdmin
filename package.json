@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode dev --port 80",
     "prd":"vue-cli-service serve --mode prd --port 80",
-    "build": "vue-cli-service build --mode dev",
+    "build": "vue-cli-service build --mode prd",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

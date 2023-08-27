@@ -46,7 +46,7 @@ export default {
             if (response.data.errno === 0){
               localStorage.token = response.data.data.token;
               this.$cookies.set("username",this.loginForm.username,{ expires: '1d', path: '/' })
-              this.$router.push('/admin');
+              this.$router.push('/');
             }else if( response.data.errno === -1){
               this.$message(
                   {
@@ -71,7 +71,7 @@ export default {
   mounted() {
     const username = this.$cookies.get("username");
     if (username){
-      this.$router.push('/admin')
+      this.$router.push('/')
     }
   }
 }

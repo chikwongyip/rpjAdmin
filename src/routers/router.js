@@ -16,9 +16,13 @@ let routes = [
             { path: 'brand',component: BrandList},
             { path:'category',component: CategoryList },
             { path:'company',component: CompanyDetails},
-            { path:'product',component: ProductList},
-            { path:'login',component: Login}
+            { path:'product',component: ProductList}
+            // { path:'login',component: Login}
         ]
+    },
+    {
+        path: '/login',
+        component: Login
     }
 
 ];

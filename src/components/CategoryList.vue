@@ -157,7 +157,7 @@ export default {
             type:"error"
           })
           this.listLoading = false
-          this.$router.push('/admin/login')
+          this.$router.push('/login')
         }
       })
           .catch(err => {
@@ -188,7 +188,7 @@ export default {
               message:"删除失败",
               type:"error"
             })
-            this.$router.push('/admin/login')
+            this.$router.push('/login')
           }
         })
             .catch((error) => {

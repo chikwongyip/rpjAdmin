@@ -242,7 +242,9 @@ export default {
                     let param = new FormData();
                     param.append("brand_id",this.editForm.brand_id)
                     param.append("brand_name",this.editForm.brand_name)
-                    param.append("brand_image",this.fileList[0].raw)
+                    if(this.fileList[0]){
+                      param.append("brand_image",this.fileList[0].raw) 
+                    }
                     updateBrand(param).then((response) =>{
                       this.editLoading = false
                       if(response.data.errno === 0){
@@ -255,7 +257,7 @@ export default {
                         this.editFormVisible = false
                         this.getData()
                       }else{
-                        this.$router.push('/admin/login');
+                        this.$router.push('/login');
                       }
                     })
                         .catch(err => {
@@ -287,7 +289,7 @@ export default {
               this.addLoading= false
               this.getData()
               }else{
-                this.$router.push('/admin/login');
+                this.$router.push('login');
               }
             })
           })

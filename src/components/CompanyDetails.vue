@@ -93,6 +93,8 @@ export default {
                 message:"更新成功",
                 type:"success"
               })
+            }else{
+              this.$router.push('/login');
             }
           })
               .catch((error) => {

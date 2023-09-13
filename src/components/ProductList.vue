@@ -400,6 +400,8 @@ export default {
                   message:"更新成功",
                   type:"success"
                 })
+              }else{
+                this.$router.push('/login'); 
               }
             })
                 .catch(error => {
@@ -448,6 +450,7 @@ export default {
                     }
                 )
                 this.editFormLoading = false
+                this.$router.push('/login');
               }
             })
           })

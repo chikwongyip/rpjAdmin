@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --mode dev --port 80",
-    "prd":"vue-cli-service serve --mode prd --port 80",
-    "build": "vue-cli-service build --mode prd",
+    "serve": "vue-cli-service serve --mode dev --port 8001",
+    "prd":"vue-cli-service serve --mode prd --port 8001",
+    "build": "vue-cli-service build --mode prd --port 8001",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

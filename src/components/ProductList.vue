@@ -400,7 +400,8 @@ export default {
                   message:"更新成功",
                   type:"success"
                 })
-              }else{
+              }else if(response.data.errno === -2){
+                localStorage.removeItem('token')
                 this.$router.push('/login'); 
               }
             })
@@ -442,7 +443,7 @@ export default {
                 })
                 this.editFormLoading = false
 
-              }else{
+              }else if(res.data.errno === -2){
                 this.$message(
                     {
                       message:res.data.message,
@@ -450,6 +451,7 @@ export default {
                     }
                 )
                 this.editFormLoading = false
+                localStorage.removeItem('token')
                 this.$router.push('/login');
               }
             })

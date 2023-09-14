@@ -256,7 +256,10 @@ export default {
                         this.fileList = []
                         this.editFormVisible = false
                         this.getData()
-                      }else{
+                      }else if(response.data.errno === -2){
+                        this.fileList = []
+                        this.$refs[formName].resetFields()
+                        localStorage.clear
                         this.$router.push('/login');
                       }
                     })
@@ -288,8 +291,11 @@ export default {
               this.fileList = []
               this.addLoading= false
               this.getData()
-              }else{
-                this.$router.push('login');
+              }else if(response.data.errno === -2){
+                this.$refs['addForm'].resetFields()
+                this.fileList = []
+                localStorage.clear
+                this.$router.push('/login');
               }
             })
           })

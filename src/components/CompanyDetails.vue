@@ -93,7 +93,8 @@ export default {
                 message:"更新成功",
                 type:"success"
               })
-            }else{
+            }else if(response.data.errno === -2){
+              localStorage.removeItem('token')
               this.$router.push('/login');
             }
           })

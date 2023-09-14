@@ -151,12 +151,13 @@ export default {
           this.data = response.data.data
           this.dataSearch = response.data.data
           this.listLoading = false
-        }else{
+        }else if(response.data.errno === -2){
           this.$message({
             message:response.data.message,
             type:"error"
           })
           this.listLoading = false
+          localStorage.removeItem('token')
           this.$router.push('/login')
         }
       })
@@ -183,11 +184,12 @@ export default {
               message:"删除成功",
               type:"success"
             })
-          }else{
+          }else if(response.data.errno === -2){
             this.$message({
               message:"删除失败",
               type:"error"
             })
+            localStorage.removeItem('token')
             this.$router.push('/login')
           }
         })
@@ -230,7 +232,8 @@ export default {
                     this.$refs[formName].resetFields()
                     this.editFormVisible = false
                     this.getData()
-                  }else{
+                  }else if(response.data.errno === -2){
+                    localStorage.removeItem('token')
                     this.$router.push('/login')
                   }
                 })

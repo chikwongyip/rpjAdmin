@@ -52,6 +52,7 @@
 import { getCompany,editCompany} from "@/api/admin";
 export default {
   name: "CompanyDetails",
+  inject:['reload'],
   data() {
     return {
       logo:{},
@@ -88,14 +89,19 @@ export default {
             params.append("logo",this.fileList[0].raw)
           }
           editCompany(params).then((response) => {
+            console.log(response.data)
             if(response.data.errno === 0){
               this.$message({
                 message:"更新成功",
                 type:"success"
               })
+              this.reload()
             }else if(response.data.errno === -2){
               localStorage.removeItem('token')
               this.$router.push('/login');
+            }else if(response.data.errno === -1){
+              localStorage.clear
+              this.$router.push('/login')
             }
           })
               .catch((error) => {

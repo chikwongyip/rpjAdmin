@@ -195,6 +195,7 @@
 import {getProductList, addProductList,deleteProduct,editProduct} from "@/api/admin";
 export default {
   name:"ProductList",
+  inject:['reload'],
   data(){
     return{
       filters:{
@@ -337,9 +338,12 @@ export default {
           deleteProduct(param).then(result =>{
             if(result.data.errno === 0){
               this.$message.success("删除成功!")
-              this.productList.splice(index,1)
+              this.reload()
+            }else if(result.data.errno === -2){
+              this.$router.push('/login')
+            }else{
+              this.$message.error("删除失败！" + result.data.message) 
             }
-            this.$message.error("删除失败！" + result.data.message)
           })
 
         })
@@ -400,6 +404,7 @@ export default {
                   message:"更新成功",
                   type:"success"
                 })
+                this.reload()
               }else if(response.data.errno === -2){
                 localStorage.removeItem('token')
                 this.$router.push('/login'); 
@@ -442,7 +447,7 @@ export default {
                   type:"success"
                 })
                 this.editFormLoading = false
-
+                this.reload()
               }else if(res.data.errno === -2){
                 this.$message(
                     {

@@ -69,8 +69,8 @@ export default {
     }
   },
   mounted() {
-    const username = this.$cookies.get("username");
-    if (username){
+    let token = localStorage.getItem('token')
+    if (token){
       this.$router.push('/')
     }
   }

@@ -109,6 +109,7 @@
 import { getBrandList,deleteBrand,updateBrand,addBrand } from "@/api/admin";
 export default {
   name:"BrandList",
+  inject:['reload'],
   data(){
     return{
       previewUrl:'',           //图片预览URL
@@ -205,8 +206,8 @@ export default {
           param.append("brand_id",id)
           deleteBrand(param).then(result =>{
             if(result.data.errno === 0){
-              this.brandList.splice(index,1)
               this.$message.success("删除成功")
+              this.reload()
             }else{
               this.$message.error(result.data.message)
               this.$router.push('/admin/login');
@@ -237,7 +238,6 @@ export default {
             if (valid){
               this.$confirm("确认提交吗？","提示",{}).then(
                   () => {
-                    // TODO:Due to token was expired push router can not display login page
                     this.editLoading = true
                     let param = new FormData();
                     param.append("brand_id",this.editForm.brand_id)
@@ -255,7 +255,9 @@ export default {
                         this.$refs[formName].resetFields()
                         this.fileList = []
                         this.editFormVisible = false
-                        this.getData()
+                        this.reload()
+                        // this.getData()
+
                       }else if(response.data.errno === -2){
                         this.fileList = []
                         this.$refs[formName].resetFields()
@@ -290,7 +292,7 @@ export default {
               this.$refs['addForm'].resetFields()
               this.fileList = []
               this.addLoading= false
-              this.getData()
+              this.reload()
               }else if(response.data.errno === -2){
                 this.$refs['addForm'].resetFields()
                 this.fileList = []

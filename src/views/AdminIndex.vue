@@ -76,7 +76,13 @@ export default {
     }
   },
   mounted() {
-    this.getData()
+    let token = localStorage.getItem('token')
+    if(token){
+      this.getData() 
+    }else{
+      this.$router.push('/login')
+    }
+    // this.getData()
   }
 }
 </script>

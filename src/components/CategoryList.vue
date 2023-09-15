@@ -89,6 +89,7 @@ import { getCategoryList, updateCategory,addCategory,deleteCategory} from "@/api
 
 export default {
   name:"CategoryList",
+  inject:['reload'],
   data(){
     return{
       data:[],
@@ -184,6 +185,7 @@ export default {
               message:"删除成功",
               type:"success"
             })
+            this.reload()
           }else if(response.data.errno === -2){
             this.$message({
               message:"删除失败",
@@ -231,7 +233,7 @@ export default {
                     })
                     this.$refs[formName].resetFields()
                     this.editFormVisible = false
-                    this.getData()
+                    this.reload()
                   }else if(response.data.errno === -2){
                     localStorage.removeItem('token')
                     this.$router.push('/login')
@@ -267,7 +269,7 @@ export default {
                 this.$refs[formName].resetFields()
                 this.fileList = []
                 this.addFormLoading = false
-                this.getData()
+                this.reload()
               }else {
                 this.$router.push('/login')
               }

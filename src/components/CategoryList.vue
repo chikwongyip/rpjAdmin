@@ -152,7 +152,7 @@ export default {
           this.data = response.data.data
           this.dataSearch = response.data.data
           this.listLoading = false
-        }else if(response.data.errno === -2){
+        }else{
           this.$message({
             message:response.data.message,
             type:"error"
@@ -186,7 +186,7 @@ export default {
               type:"success"
             })
             this.reload()
-          }else if(response.data.errno === -2){
+          }else{
             this.$message({
               message:"删除失败",
               type:"error"
@@ -234,7 +234,7 @@ export default {
                     this.$refs[formName].resetFields()
                     this.editFormVisible = false
                     this.reload()
-                  }else if(response.data.errno === -2){
+                  }else{
                     localStorage.removeItem('token')
                     this.$router.push('/login')
                   }
@@ -270,7 +270,8 @@ export default {
                 this.fileList = []
                 this.addFormLoading = false
                 this.reload()
-              }else {
+              }else{
+                localStorage.removeItem('token')
                 this.$router.push('/login')
               }
             })

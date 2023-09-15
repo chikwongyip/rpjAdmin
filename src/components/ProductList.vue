@@ -339,10 +339,9 @@ export default {
             if(result.data.errno === 0){
               this.$message.success("删除成功!")
               this.reload()
-            }else if(result.data.errno === -2){
-              this.$router.push('/login')
             }else{
-              this.$message.error("删除失败！" + result.data.message) 
+              localStorage.removeItem('token')
+              this.$router.push('/login')
             }
           })
 
@@ -448,7 +447,7 @@ export default {
                 })
                 this.editFormLoading = false
                 this.reload()
-              }else if(res.data.errno === -2){
+              }else{
                 this.$message(
                     {
                       message:res.data.message,

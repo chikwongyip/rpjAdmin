@@ -210,7 +210,8 @@ export default {
               this.reload()
             }else{
               this.$message.error(result.data.message)
-              this.$router.push('/admin/login');
+              localStorage.removeItem('token')
+              this.$router.push('/login');
             }
           })
         })
@@ -258,10 +259,10 @@ export default {
                         this.reload()
                         // this.getData()
 
-                      }else if(response.data.errno === -2){
+                      }else{
                         this.fileList = []
                         this.$refs[formName].resetFields()
-                        localStorage.clear
+                        localStorage.removeItem('token')
                         this.$router.push('/login');
                       }
                     })
@@ -293,10 +294,10 @@ export default {
               this.fileList = []
               this.addLoading= false
               this.reload()
-              }else if(response.data.errno === -2){
+              }else{
                 this.$refs['addForm'].resetFields()
                 this.fileList = []
-                localStorage.clear
+                localStorage.removeItem('token')
                 this.$router.push('/login');
               }
             })

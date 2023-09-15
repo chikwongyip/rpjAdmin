@@ -96,12 +96,9 @@ export default {
                 type:"success"
               })
               this.reload()
-            }else if(response.data.errno === -2){
+            }else{
               localStorage.removeItem('token')
               this.$router.push('/login');
-            }else if(response.data.errno === -1){
-              localStorage.clear
-              this.$router.push('/login')
             }
           })
               .catch((error) => {

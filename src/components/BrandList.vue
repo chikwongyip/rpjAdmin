@@ -282,7 +282,9 @@ export default {
             this.addLoading = true;
             let param = new FormData()
             param.append("brand_name",this.addForm.brand_name)
-            param.append("brand_image",this.fileList[0].raw)
+            if(this.fileList[0]){
+              param.append("brand_image",this.fileList[0].raw) 
+            }
             addBrand(param).then((response) => {
             if (response.data.errno === 0){
               this.addLoading = false

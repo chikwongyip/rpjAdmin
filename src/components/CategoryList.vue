@@ -258,7 +258,9 @@ export default {
             this.addFormLoading = true
             let param = new FormData()
             param.append("category_name",this.addForm.category_name)
-            param.append("category_image",this.fileList[0].raw)
+            if(this.fileList[0]){
+              param.append("category_image",this.fileList[0].raw) 
+            }
             addCategory(param).then((response) => {
               if (response.data.errno === 0){
                 this.addFormLoading = false

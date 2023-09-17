@@ -159,7 +159,7 @@
         <el-form-item label="产品描述" prop="product_desc">
           <el-input type="textarea"
                     placeholder="请输入产品描述"
-                    maxlength="500"
+                    maxlength="5000"
                     show-word-limit
                     v-model="addForm.product_desc"
                     auto-complete="off"

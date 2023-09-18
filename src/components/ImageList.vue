@@ -49,7 +49,7 @@
         <div>
           <el-image
               :src="editForm.url"
-              style="width:200px;height:200px"
+              style="width:500px;height:500px"
               :load="imageOnLoad"
           >
             <div slot="placeholder" class="image-slot">
@@ -78,7 +78,7 @@
                 :multiple="true"
                 :auto-upload="false"
                 :show-file-list="true"
-                :limit="1"
+                :limit="6"
                 :file-list="fileList"
                 list-type="picture-card"
                 :on-preview="handlePictureCardPreview"
@@ -148,7 +148,7 @@
               this.productList = res.data.data.product;
               this.dataSearch = res.data.data.images
               this.data = res.data.data.images
-              this.imageList = res.data.data.images;
+              // this.imageList = res.data.data.images;
               // this.dataSearch = res.data.data.product;
               // this.images = res.data.data.images;
               // this.brand = res.data.data.brand;
@@ -163,6 +163,7 @@
           searchResult = this.data.filter(item => {
             return (item.product_id == this.filters.product_id)
           })
+          console.log(searchResult)
           this.data = searchResult
           this.listLoading = false
         },
@@ -170,12 +171,12 @@
           this.selectedList = selected
         },
         handleDel(index,row){
-          let id = Object.assign({},row).brand_id
+          let id = Object.assign({},row).pic_id
           if (id){
             this.$confirm('确认删除该记录吗？','提示',{type:"warning"}
             ).then(() => {
               let param = new FormData()
-              param.append("id",id)
+              param.append("pic_id",id)
               deleteImages(param).then(result =>{
                 if(result.data.errno === 0){
                   this.$message.success("删除成功")
@@ -213,9 +214,12 @@
                 this.addLoading = true;
                 let param = new FormData()
                 param.append("product_id",this.addForm.product_id)
-                if(this.fileList[0]){
-                  param.append("image",this.fileList[0].raw) 
-                }
+                this.fileList.forEach((file, index) => {
+                  param.append(`image${index}`, file.raw)
+                })
+                // if(this.fileList[0]){
+                //   param.append("image",this.fileList[0].raw) 
+                // }
                 addImages(param).then((response) => {
                 if (response.data.errno === 0){
                   this.addLoading = false

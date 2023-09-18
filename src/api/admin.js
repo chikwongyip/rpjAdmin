@@ -81,3 +81,14 @@ export const deleteCategory = (params) =>{
         headers:{"Content-Type":"multipart/form-data"}
     })
 }
+
+export const addImages = params => {
+    return axios.post(`${base}/admin/addImage`,params,{
+        headers:{"Content-Type":"multipart/form-data"} 
+    })
+}
+export const deleteImages = (params) => {
+    return axios.post(`${base}/admin/deleteImage`,params,{
+        headers:{"Content-Type":"multipart/form-data"}
+    })
+}

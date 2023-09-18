@@ -25,6 +25,10 @@
           <i class="el-icon-menu"></i>
           <span slot="title">Product</span>
         </el-menu-item>
+        <el-menu-item index="/image">
+          <i class="el-icon-menu"></i>
+          <span slot="title">Product Images</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>

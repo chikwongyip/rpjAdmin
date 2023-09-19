@@ -10,7 +10,7 @@
           <el-input type="password" v-model="loginForm.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSubmit">Submit</el-button>
+          <el-button type="primary" native-type="submit" @click="handleSubmit">Submit</el-button>
         </el-form-item>
       </el-form>
     </el-card>

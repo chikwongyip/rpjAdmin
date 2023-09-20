@@ -1,40 +1,49 @@
 <template>
   <el-upload
-      class="avatar-uploader"
-      action="{uploadUrl}"
-      :on-success="handleSuccess"
-      :on-error="handleError"
-      :headers="headers"
-      :multiple="true"
-      :show-file-list="false">
-    <i class="el-icon-upload"></i>
-    <div class="el-upload__text">将文件拖到此处，或<span>点击上传</span></div>
-    <div class="el-upload__tip" slot="tip">只能上传 xls/xlsx 文件，且不超过 50MB</div>
+    class="upload-demo"
+    action=""
+    :auto-upload="false"
+    :on-remove="handleRemove"
+    :before-remove="beforeRemove"
+    :before-upload="beforeUpload"
+    multiple
+    :limit="1"
+    :file-list="fileList">
+    <el-button size="small" type="primary">点击上传</el-button>
+    <div slot="tip" class="el-upload__tip">只能上传pdf文件</div>
   </el-upload>
 </template>
 
 <script>
 export default {
-  name: "UploadFile",
-  data() {
-    return {
-      uploadUrl: 'http://localhost:8000/api/admin/upload', // 上传文件的接口地址
-      headers: { // 设置请求头
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+    name: "UploadFile",
+    data() {
+        return {
+          fileList:[]
+        };
+    },
+    methods: {
+      beforeUpload(file){
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG && !isPNG) {
+          this.$message.error('仅支持JPG和PNG格式图片！');
+          return false;
+        }
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过2MB！');
+          return false;
+        }
+        return true;
       },
-    };
-  },
-  methods: {
-    handleSuccess(response) {
-      // 上传成功后的响应处理代码
-      // this.$emit('upload-success', response);
-      console.log(response)
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      beforeRemove(file) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      }
     },
-    handleError(err) {
-      // 上传失败后的响应处理代码
-      console.log('上传失败', err);
-    },
-  },
 }
 </script>
 

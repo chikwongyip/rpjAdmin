@@ -29,21 +29,14 @@
           <i class="el-icon-menu"></i>
           <span slot="title">修改产品图片</span>
         </el-menu-item>
+        <el-menu-item index="/docs">
+          <i class="el-icon-menu"></i>
+          <span slot="title">修改文档</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
       <el-header class="header">
-        <!-- <div>
-          <el-image
-              :src="company.logo"
-              style="width:200px;height: 80px"
-              :load="imageOnLoad"
-          >
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
-          </el-image>
-        </div> -->
       </el-header>
       <el-main>
         <router-view></router-view>

@@ -6,6 +6,7 @@ import CategoryList from "@/components/CategoryList";
 import CompanyDetails from "@/components/CompanyDetails";
 import ProductList from "@/components/ProductList";
 import ImageList from "../components/ImageList"
+import DocsList from "../components/DocsList"
 
 let routes = [
     {
@@ -17,8 +18,8 @@ let routes = [
             { path:'category',component: CategoryList },
             { path:'company',component: CompanyDetails},
             { path:'product',component: ProductList},
-            { path:'image',component: ImageList}
-            // { path:'login',component: Login}
+            { path:'image',component: ImageList},
+            { path:'docs',component: DocsList }
         ]
     },
     {

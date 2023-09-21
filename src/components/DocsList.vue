@@ -39,16 +39,10 @@
 
       <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
         <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-          <el-form-item label="产品名称" prop="product_name">
-            <el-select v-model="addForm.product_id"
-                       placeholder="请选择产品类型">
-              <el-option
-                v-for="item in productList"
-                :key="item.product_id"
-                :label="item.product_name"
-                :value="item.product_id">
-              </el-option> 
-            </el-select>
+          <el-form-item label="文档名称" prop="name">
+            <el-form-item label="文档名称">
+              <el-input v-model="addForm.name" autocomplete="off"></el-input>
+            </el-form-item>
           </el-form-item>
           <el-form-item>
             <upload-file :sendData="fileList"></upload-file>
@@ -57,6 +51,12 @@
         <div slot="footer" class="dialog-footer">
           <el-button @click.native="addFormVisible = false">取消</el-button>
           <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+        </div>
+      </el-dialog>
+
+      <el-dialog title="文件" :visible.sync="editFormVisible" :close-on-click-modal="false">
+        <div class="showPDF">
+          <iframe src="editForm.docs" frameborder="0"></iframe>
         </div>
       </el-dialog>
     </section>
@@ -82,11 +82,15 @@
           data:[],
           dataSearch:[],
           addFormVisible:false,
-          addForms:{
+          addForm:{
+            name:""
+          },
+          fileList:[],
+          editFormVisible:false,
+          editForm:{
             name:"",
             docs:""
-          },
-          fileList:[]
+          }
         }
       },
       methods:{
@@ -98,14 +102,74 @@
             }
           })
         },
+        handleAdd(){
+          this.addFormVisible = true
+          this.addLoading = false
+          this.addForm.name = ""
+          this.fileList = []
+        },
+        addSubmit(){
+          this.$refs.addForm.validate((isValid) => {
+            if(isValid){
+              this.$refs.addForm.validate((isValid) => {
+                if(isValid){
+                  let params = new FormData()
+                  params.append('name',this.addForm.name)
+                  if(this.fileList[0]){
+                    params.append('docs',this.fileList[0].raw)
+                  }
+                  addDocs(params).then(res => {
+                    if(res.data.errno === 0){
+                      this.$message({
+                        message:"提交成功",
+                        type:"success"
+                      })
+                      this.$refs['addForm'].resetFields()
+                      this.fileList = []
+                      this.addLoading= false
+                      this.reload()
+                    }else{
+                      this.$refs['addForm'].resetFields()
+                      this.fileList = []
+                      localStorage.removeItem('token')
+                      this.$router.push('/login');
+                    }
+                  }) 
+                }
+              })
+            }
+          })
+        },
+        handleDel(index, row){
+          let id = Object.assign({},row).id
+          if (id){
+            this.$confirm('确认删除该记录吗？','提示',{type:"warning"}
+            ).then(() => {
+              let param = new FormData()
+              param.append("id",id)
+              deleteDocs(param).then(result =>{
+                if(result.data.errno === 0){
+                  this.$message.success("删除成功")
+                  this.reload()
+                }else{
+                  this.$message.error(result.data.message)
+                  localStorage.removeItem('token')
+                  this.$router.push('/login');
+                }
+              })
+            })
+                .catch(err => {
+                  this.$message.error(err)
+                })
+          }
+          this.selectID = null
+        },
         handleSelectionChange(selected){
           this.selectedList = selected
         },
         handleEdit(index,row){
-
-        },
-        handleDel(index, row){
-
+          this.editForm.docs = process.env.VUE_APP_IMG + Object.assign({},row).docs
+          this.editFormVisible = true
         },
         handleCurrentChange(value){
           this.currentPage = value;
@@ -113,9 +177,6 @@
         handleSizeChange(value){
           this.pageSize = value
         },
-        getFile(){
-
-        }
       },
       computed:{
         dataList(){
@@ -129,5 +190,11 @@
   </script>
   
   <style scoped>
-  
+    .showPDF{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+    }
   </style>

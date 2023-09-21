@@ -24,6 +24,7 @@ export default {
     },
     methods: {
       beforeUpload(file){
+        console.log(file)
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -35,10 +36,13 @@ export default {
           this.$message.error('上传图片大小不能超过2MB！');
           return false;
         }
+        this.fileList.push(file)
+        this.$emit('sendFile',this.fileList)
         return true;
       },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
+      handleRemove(file){
+        this.fileList.splice(this.fileList.indexOf(file),1)
+        this.$emit('sendFile', this.fileList)
       },
       beforeRemove(file) {
         return this.$confirm(`确定移除 ${ file.name }？`);

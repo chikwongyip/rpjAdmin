@@ -92,3 +92,19 @@ export const deleteImages = (params) => {
         headers:{"Content-Type":"multipart/form-data"}
     })
 }
+export const getDocs = (params) => {
+    return axios.get(`${base}/admin/getDocs`,params,{
+        headers:{"Content-Type":"multipart/form-data"}
+    })
+}
+export const addDocs = (params) => {
+    return axios.post(`${base}/admin/addDocs`,params,{
+        headers:{"Content-Type":"multipart/form-data"} 
+    })
+}
+
+export const deleteDocs = (params) => {
+    return axios.post(`${base}/admin/deleteDocs`, params,{
+        headers:{"Content-Type":"multipart/form-data"}
+    })
+}

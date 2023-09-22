@@ -43,6 +43,7 @@ export default {
         if (valid) {
           let param = this.loginForm
           userLogin(param).then(response => {
+            console.log(response.data)
             if (response.data.errno === 0){
               localStorage.token = response.data.data.token;
               this.$cookies.set("username",this.loginForm.username,{ expires: '1d', path: '/' })

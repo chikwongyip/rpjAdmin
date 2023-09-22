@@ -90,6 +90,12 @@
           editForm:{
             name:"",
             docs:""
+          },
+          addLoading:false,
+          addFormRules:{
+            name:[
+              { requrie:true,message:"请选择产品名称", trigger:'blur' },
+            ]
           }
         }
       },
@@ -101,6 +107,17 @@
               this.dataSearch = res.data.data
             }
           })
+        },
+        searchData(){
+          this.data = this.dataSearch
+          if (this.filters.name) {
+                this.searchResult = []
+                const regExp = new RegExp(this.filters.name, "g");
+                this.searchResult = this.data.filter(item => {
+                    return regExp.test(item.product_name)
+                })
+                this.data = this.searchResult
+            }
         },
         handleAdd(){
           this.addFormVisible = true
@@ -118,6 +135,7 @@
                   if(this.fileList[0]){
                     params.append('docs',this.fileList[0].raw)
                   }
+                  
                   addDocs(params).then(res => {
                     if(res.data.errno === 0){
                       this.$message({

@@ -9,7 +9,7 @@
     multiple
     :limit="1"
     :file-list="fileList">
-    <el-button size="small" type="primary">点击上传</el-button>
+    <el-button size="small" type="primary" v-on:click="$emit(fileList)">点击上传</el-button>
     <div slot="tip" class="el-upload__tip">只能上传pdf文件</div>
   </el-upload>
 </template>
@@ -37,16 +37,18 @@ export default {
           return false;
         }
         this.fileList.push(file)
-        this.$emit('sendFile',this.fileList)
+        console.log(this.fileList)
+        this.$emit('sendData',this.fileList)
         return true;
       },
       handleRemove(file){
         this.fileList.splice(this.fileList.indexOf(file),1)
-        this.$emit('sendFile', this.fileList)
+        this.$emit('sendData', this.fileList)
       },
       beforeRemove(file) {
         return this.$confirm(`确定移除 ${ file.name }？`);
-      }
+      },
+
     },
 }
 </script>

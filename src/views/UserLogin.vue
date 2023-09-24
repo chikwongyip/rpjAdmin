@@ -10,7 +10,7 @@
           <el-input type="password" v-model="loginForm.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" native-type="submit" @click="handleSubmit">Submit</el-button>
+          <el-button type="primary" @click="handleSubmit">Submit</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -42,8 +42,9 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           let param = this.loginForm
+          console.log(param)
           userLogin(param).then(response => {
-            console.log(response.data)
+            
             if (response.data.errno === 0){
               localStorage.token = response.data.data.token;
               this.$cookies.set("username",this.loginForm.username,{ expires: '1d', path: '/' })

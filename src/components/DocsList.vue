@@ -45,7 +45,7 @@
             </el-form-item>
           </el-form-item>
           <el-form-item>
-            <upload-file :sendData="fileList"></upload-file>
+            <upload-file @sendData="getPdf"></upload-file>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -195,6 +195,10 @@
         handleSizeChange(value){
           this.pageSize = value
         },
+        getPdf(file){
+          this.fileList = file
+          console.log(this.fileList)
+        }
       },
       computed:{
         dataList(){

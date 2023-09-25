@@ -42,7 +42,6 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           let param = this.loginForm
-          console.log(param)
           userLogin(param).then(response => {
             
             if (response.data.errno === 0){

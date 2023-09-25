@@ -55,8 +55,8 @@
       </el-dialog>
 
       <el-dialog title="文件" :visible.sync="editFormVisible" :close-on-click-modal="false">
-        <div class="showPDF">
-          <iframe src="editForm.docs" frameborder="0"></iframe>
+        <div>
+          <iframe :src="editForm.docs" frameborder="0"></iframe>
         </div>
       </el-dialog>
     </section>
@@ -104,6 +104,7 @@
         getData(){
           getDocs().then( res => {
             if(res.data.errno === 0){
+              console.log(res.data)
               this.data = res.data.data
               this.dataSearch = res.data.data
             }
@@ -198,9 +199,11 @@
         },
         sendfile(file){
           this.fileList = []
-          this.fileList = file
-          console.log(this.fileList)      
+          this.fileList = file 
         }
+      },
+      mounted(){
+        this.getData()
       },
       computed:{
         dataList(){
@@ -214,11 +217,4 @@
   </script>
   
   <style scoped>
-    .showPDF{
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      bottom: 0;
-    }
   </style>

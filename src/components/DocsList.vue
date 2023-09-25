@@ -45,7 +45,7 @@
             </el-form-item>
           </el-form-item>
           <el-form-item>
-            <upload-file @sendData="getPdf"></upload-file>
+            <upload-file @sendfile="sendfile"></upload-file>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -71,6 +71,7 @@
       components:{
         UploadFile
       },
+
       data(){
         return{
           filters:{
@@ -195,9 +196,10 @@
         handleSizeChange(value){
           this.pageSize = value
         },
-        getPdf(file){
+        sendfile(file){
+          this.fileList = []
           this.fileList = file
-          console.log(this.fileList)
+          console.log(this.fileList)      
         }
       },
       computed:{

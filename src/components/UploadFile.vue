@@ -6,10 +6,11 @@
     :on-remove="handleRemove"
     :before-remove="beforeRemove"
     :before-upload="beforeUpload"
+    :on-change="handleUploadChange"
     multiple
-    :limit="1"
+    :limit="2"
     :file-list="fileList">
-    <el-button size="small" type="primary" v-on:click="$emit(fileList)">点击上传</el-button>
+    <el-button size="small" type="primary">点击上传</el-button>
     <div slot="tip" class="el-upload__tip">只能上传pdf文件</div>
   </el-upload>
 </template>
@@ -17,14 +18,21 @@
 <script>
 export default {
     name: "UploadFile",
+    // props:{
+    //   fileList:[]
+    // },
     data() {
         return {
           fileList:[]
         };
     },
     methods: {
+      handleUploadChange(file){
+        this.fileList.push(file)
+        this.$emit('sendfile',this.fileList)
+      },
       beforeUpload(file){
-        console.log(file)
+        console.log(file.type)
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -36,14 +44,11 @@ export default {
           this.$message.error('上传图片大小不能超过2MB！');
           return false;
         }
-        this.fileList.push(file)
-        console.log(this.fileList)
-        this.$emit('sendData',this.fileList)
         return true;
       },
       handleRemove(file){
         this.fileList.splice(this.fileList.indexOf(file),1)
-        this.$emit('sendData', this.fileList)
+        this.$emit('sendfile', this.fileList)
       },
       beforeRemove(file) {
         return this.$confirm(`确定移除 ${ file.name }？`);

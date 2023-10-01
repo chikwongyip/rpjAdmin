@@ -136,6 +136,7 @@
                   params.append('name',this.addForm.name)
                   if(this.fileList[0]){
                     params.append('docs',this.fileList[0].raw)
+                    params.append('size',this.fileList[0].size)
                   }
                   
                   addDocs(params).then(res => {

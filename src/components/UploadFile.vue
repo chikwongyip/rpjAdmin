@@ -18,18 +18,19 @@
 <script>
 export default {
     name: "UploadFile",
-    // props:{
-    //   fileList:[]
-    // },
+    props:{
+      fileList:[]
+    },
     data() {
         return {
-          fileList:[]
+          uploadList:[]
         };
     },
     methods: {
       handleUploadChange(file){
-        this.fileList.push(file)
-        this.$emit('sendfile',this.fileList)
+        this.uploadList = this.fileList
+        this.uploadList.push(file)
+        this.$emit('sendfile',this.uploadList)
       },
       beforeUpload(file){
         console.log(file.type)
@@ -47,8 +48,8 @@ export default {
         return true;
       },
       handleRemove(file){
-        this.fileList.splice(this.fileList.indexOf(file),1)
-        this.$emit('sendfile', this.fileList)
+        this.uploadList.splice(this.uploadList.indexOf(file),1)
+        this.$emit('sendfile', this.uploadList)
       },
       beforeRemove(file) {
         return this.$confirm(`确定移除 ${ file.name }？`);

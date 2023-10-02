@@ -45,7 +45,7 @@
             </el-form-item>
           </el-form-item>
           <el-form-item>
-            <upload-file @sendfile="sendfile"></upload-file>
+            <upload-file :file-list="fileList"  @sendfile="sendfile"></upload-file>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

@@ -19,6 +19,8 @@
         <el-table-column prop="id" label="文档ID" width="140"></el-table-column>
         <el-table-column prop="name" label="文档名称" width="120"></el-table-column>
         <el-table-column prop="docs" label="文件"></el-table-column>
+        <el-table-column prop="date" label="上传日期"></el-table-column>
+        <el-table-column prop="size" label="文件大小(m)"></el-table-column>
         <el-table-column label="操作" width="150">
           <template scope="scope">
             <el-button size="small" @click="handleEdit(scope.index, scope.row)">显示</el-button>

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode dev --port 8001",
     "prd": "vue-cli-service serve --mode prd --port 8001",
+    "prd2": "vue-cli-service serve --mode prd2 --port 8001",
     "build": "vue-cli-service build --mode prd --port 8001",
     "build2": "vue-cli-service build --mode prd2 --port 8001",
     "lint": "vue-cli-service lint"

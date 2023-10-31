@@ -1,10 +1,7 @@
 <template>
   <el-container style="height: auto; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu default-active="/main"
-               class="el-menu-vertical-demo"
-               router
-      >
+      <el-menu default-active="/main" class="el-menu-vertical-demo" router>
         <el-menu-item index="/main">
           <i class="el-icon-menu"></i>
           <span slot="title">主页</span>
@@ -36,8 +33,7 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header class="header">
-      </el-header>
+      <el-header class="header"> </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -48,20 +44,19 @@
 <script>
 // import {getCompany} from "@/api/admin";
 export default {
-  // TODO:LOGO
   name: "AdminIndex",
-  data(){
-    return{
+  data() {
+    return {
       company: {
-        name:"",
+        name: "",
         logo: ""
       }
-    }
+    };
   },
-  methods:{
-    handleMenuSelect(route){
+  methods: {
+    handleMenuSelect(route) {
       this.$router.push(route);
-    },
+    }
     // getData(){
     //   getCompany().then( response => {
     //     this.company.name = response.data.data[0].name
@@ -73,19 +68,19 @@ export default {
     // }
   },
   mounted() {
-    let token = localStorage.getItem('token')
-    if(token){
-      // this.getData() 
-    }else{
-      this.$router.push('/login')
+    let token = localStorage.getItem("token");
+    if (token) {
+      // this.getData()
+    } else {
+      this.$router.push("/login");
     }
     // this.getData()
   }
-}
+};
 </script>
 
 <style scoped>
-.header{
+.header {
   text-align: left;
   font-size: 12px;
   display: flex;

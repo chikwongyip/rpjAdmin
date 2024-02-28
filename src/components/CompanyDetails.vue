@@ -51,7 +51,7 @@
         :on-change="handleChange"
         :on-remove="handleRemove"
         :before-upload="beforeUpload"
-        ref="logo"
+        ref="file"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -69,27 +69,27 @@
 </template>
 
 <script>
-import { getCompany, editCompany } from "@/api/admin";
+import { getCompany, editCompany } from '@/api/admin';
 export default {
-  name: "CompanyDetails",
-  inject: ["reload"],
+  name: 'CompanyDetails',
+  inject: ['reload'],
   data() {
     return {
       logo: {},
-      previewUrl: "",
+      previewUrl: '',
       fileList: [],
       uploadVisible: false,
-      uploadImageUrl: "",
+      uploadImageUrl: '',
       company: {
-        id: "",
-        name: "",
-        description: "",
-        icp: "",
-        tel: "",
-        address: "",
-        email: "",
+        id: '',
+        name: '',
+        description: '',
+        icp: '',
+        tel: '',
+        address: '',
+        email: '',
         logo: {},
-        thumb_logo: ""
+        thumb_logo: ''
       }
     };
   },
@@ -106,26 +106,26 @@ export default {
           params.append("address", this.company.address);
           params.append("email", this.company.email);
           if (this.fileList[0]) {
-            params.append("logo", this.fileList[0].raw);
+            params.append("file", this.fileList[0].raw);
           }
           editCompany(params)
             .then((response) => {
               console.log(response.data);
               if (response.data.errno === 0) {
                 this.$message({
-                  message: "更新成功",
-                  type: "success"
+                  message: '更新成功',
+                  type: 'success'
                 });
                 this.reload();
               } else {
-                localStorage.removeItem("token");
-                this.$router.push("/login");
+                localStorage.removeItem('token');
+                this.$router.push('/login');
               }
             })
             .catch((error) => {
               this.$message({
-                message: error + "更新失败",
-                type: "error"
+                message: error + '更新失败',
+                type: 'error'
               });
             });
         }
@@ -147,21 +147,21 @@ export default {
         })
         .catch((error) => {
           this.$message({
-            message: error + "获取失败",
-            type: "error"
+            message: error + '获取失败',
+            type: 'error'
           });
         });
     },
     beforeUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isPNG = file.type === "image/png";
+      const isJPG = file.type === 'image/jpeg';
+      const isPNG = file.type === 'image/png';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG && !isPNG) {
-        this.$message.error("仅支持JPG和PNG格式图片！");
+        this.$message.error('仅支持JPG和PNG格式图片！');
         return false;
       }
       if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过2MB！");
+        this.$message.error('上传图片大小不能超过2MB！');
         return false;
       }
       return true;

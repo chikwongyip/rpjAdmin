@@ -333,7 +333,7 @@ export default {
               let param = new FormData();
               param.append("brand_name", this.addForm.brand_name);
               if (this.fileList[0]) {
-                param.append("brand_image", this.fileList[0].raw);
+                param.append("file", this.fileList[0].raw);
               }
               addBrand(param).then((response) => {
                 if (response.data.errno === 0) {

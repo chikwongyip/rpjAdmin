@@ -1,8 +1,7 @@
 import axios from "axios";
 let base = process.env.VUE_APP_URL;
 const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json"
+  'Content-Type': 'multipart/form-data'
 };
 export const userLogin = (params) => {
   return axios.post(`${base}/user/login`, params, {

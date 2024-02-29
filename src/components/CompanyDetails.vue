@@ -89,7 +89,8 @@ export default {
         address: '',
         email: '',
         logo: {},
-        thumb_logo: ''
+        thumb_logo: '',
+        path:''
       }
     };
   },
@@ -107,6 +108,7 @@ export default {
           params.append("email", this.company.email);
           if (this.fileList[0]) {
             params.append("file", this.fileList[0].raw);
+            params.append('deleteFile', this.company.path);
           }
           editCompany(params)
             .then((response) => {
@@ -143,6 +145,7 @@ export default {
             this.company.tel = response.data.data[0].tel;
             this.company.address = response.data.data[0].address;
             this.company.email = response.data.data[0].email;
+            this.company.path = response.data.data[0].path;
           }
         })
         .catch((error) => {

@@ -252,8 +252,10 @@ export default {
     handleDel(index, row) {
       this.$confirm("确认删除吗", "提示", {}).then(() => {
         let category_id = Object.assign({}, row).category_id;
+        let path = Object.assign({},row).path;
         let param = new FormData();
         param.append("category_id", category_id);
+        param.append("deleteFile", path)
         deleteCategory(param)
           .then((response) => {
             if (response.data.errno === 0) {
@@ -332,7 +334,7 @@ export default {
             let param = new FormData();
             param.append("category_name", this.addForm.category_name);
             if (this.fileList[0]) {
-              param.append("category_image", this.fileList[0].raw);
+              param.append("file", this.fileList[0].raw);
             }
             addCategory(param)
               .then((response) => {

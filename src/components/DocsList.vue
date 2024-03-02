@@ -170,7 +170,7 @@ export default {
               let params = new FormData();
               params.append("name", this.addForm.name);
               if (this.fileList[0]) {
-                params.append("docs", this.fileList[0].raw);
+                params.append("file", this.fileList[0].raw);
                 params.append("size", this.fileList[0].size);
               }
 
@@ -198,11 +198,13 @@ export default {
     },
     handleDel(index, row) {
       let id = Object.assign({}, row).id;
+      let path = Object.assign({},row).path;
       if (id) {
         this.$confirm("确认删除该记录吗？", "提示", { type: "warning" })
           .then(() => {
             let param = new FormData();
             param.append("id", id);
+            param.append("deleteFile",path);
             deleteDocs(param).then((result) => {
               if (result.data.errno === 0) {
                 this.$message.success("删除成功");

@@ -295,7 +295,8 @@ export default {
             param.append("brand_id", this.editForm.brand_id);
             param.append("brand_name", this.editForm.brand_name);
             if (this.fileList[0]) {
-              param.append("brand_image", this.fileList[0].raw);
+              param.append("file", this.fileList[0].raw);
+              param.append('deleteFile',this.editForm.path)
             }
             updateBrand(param)
               .then((response) => {

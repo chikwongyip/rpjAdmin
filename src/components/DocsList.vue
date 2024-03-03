@@ -127,7 +127,8 @@ export default {
       editFormVisible: false,
       editForm: {
         name: "",
-        docs: ""
+        docs: "",
+        path:""
       },
       addLoading: false,
       addFormRules: {
@@ -226,6 +227,9 @@ export default {
       this.selectedList = selected;
     },
     handleEdit(index, row) {
+      if(Object.assign({},row).path){
+        return
+      }
       this.editForm.docs =
         process.env.VUE_APP_IMG + Object.assign({}, row).docs;
       this.editFormVisible = true;

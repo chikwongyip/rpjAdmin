@@ -140,7 +140,6 @@ export default {
     getData() {
       getDocs().then((res) => {
         if (res.data.errno === 0) {
-          console.log(res.data);
           this.data = res.data.data;
           this.dataSearch = res.data.data;
         }
@@ -228,6 +227,8 @@ export default {
     },
     handleEdit(index, row) {
       if(Object.assign({},row).path){
+        this.editForm.docs = Object.assign({},row).docs;
+        this.editFormVisible = true;
         return
       }
       this.editForm.docs =

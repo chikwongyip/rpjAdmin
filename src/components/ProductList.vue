@@ -481,13 +481,18 @@ export default {
     },
     handleDel(index, row) {
       let id = Object.assign({}, row).product_id;
-      let path = Object.assign({},row).path;
+      //let path = Object.assign({},row).path;
       if (id) {
         this.$confirm("确认删除该记录吗？", "提示", { type: "warning" }).then(
           () => {
+            let files = this.images.filter(item =>{
+              if(item.product_id === id && !item.path){
+                return item.path
+              }
+            })
             let param = new FormData({
               product_id: id,
-              deleteFile: path
+              deleteFiles: files
             });
             deleteProduct(param).then((result) => {
               if (result.data.errno === 0) {

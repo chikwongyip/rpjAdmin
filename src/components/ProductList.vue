@@ -556,10 +556,20 @@ export default {
             formData.append("product_desc", this.addForm.product_desc);
             formData.append("product_model", this.addForm.product_model);
             formData.append("product_standard", this.addForm.product_standard);
-            this.fileList.forEach((file, index) => {
-              formData.append(`file${index}`, file.raw);
-              console.log(`file${index}`);
-            });
+            for(let i = 0; i<this.fileList.length;i++){
+              formData.append("files[]",this.fileList[i])
+            }
+            // let files = [];
+            // this.fileList.forEach((file) => {
+            //   files.push(file.raw)
+            // })
+            // if(files.length > 0){
+            //   formData.append('files',files)
+            // }
+            // this.fileList.forEach((file, index) => {
+            //   formData.append(`files`, file.raw);
+            //   console.log(`file${index}`);
+            // });
 
             addProductList(formData)
               .then((response) => {

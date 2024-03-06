@@ -346,6 +346,7 @@ import {
   deleteProduct,
   editProduct
 } from "@/api/admin";
+
 export default {
   name: "ProductList",
   inject: ["reload"],
@@ -490,10 +491,16 @@ export default {
                 return item.path
               }
             })
-            let param = new FormData({
-              product_id: id,
-              deleteFiles: files
-            });
+            // console.log(files)
+            let param = new FormData()
+            param.append('product_id',id)
+            if(files.length > 0){
+              param.append('deleteFiles',files)
+            }
+            // let param = new FormData({
+            //   product_id: id,
+            //   deleteFiles: files
+            // });
             deleteProduct(param).then((result) => {
               if (result.data.errno === 0) {
                 this.$message.success("删除成功!");
@@ -557,19 +564,8 @@ export default {
             formData.append("product_model", this.addForm.product_model);
             formData.append("product_standard", this.addForm.product_standard);
             for(let i = 0; i<this.fileList.length;i++){
-              formData.append("files[]",this.fileList[i])
+              formData.append(`files[]`,this.fileList[i].raw)
             }
-            // let files = [];
-            // this.fileList.forEach((file) => {
-            //   files.push(file.raw)
-            // })
-            // if(files.length > 0){
-            //   formData.append('files',files)
-            // }
-            // this.fileList.forEach((file, index) => {
-            //   formData.append(`files`, file.raw);
-            //   console.log(`file${index}`);
-            // });
 
             addProductList(formData)
               .then((response) => {
